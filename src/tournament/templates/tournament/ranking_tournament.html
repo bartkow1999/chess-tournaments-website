@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style>
+    .table{
+      display:table;
+      width: 542px;
+      border:1px solid  #666666;
+
+    }
+    .table-row{
+      display:table-row;
+      width:auto;
+      clear:both;
+    }
+    .table-col{
+      float:left;
+      display:table-column;
+      width:60px;
+      border:1px solid #ccc;
+    }
+
+</style>
+
+<div class="container">
+    <div class="d-flex flex-column">
+        <p class="m-auto"></p>
+        {% if ranking_list %}
+            <p class="font-weight-bold">Ranking:</p>
+            <div class="table">
+                <div class="table-row">
+                    <div class="table-col">LP.</div>
+                    <div class="table-col" style="width: 300px;">USER</div>
+                    <div class="table-col">WINS</div>
+                    <div class="table-col">LOSES</div>
+                    <div class="table-col">POINTS</div>
+                </div>
+                {% for element in ranking_list %}
+                <div class="table-row">
+                    <div class="table-col">{{forloop.counter}}</div>
+                    <div class="table-col" style="width: 300px;">{{element}}</div>
+                    <div class="table-col">{{element.wins}}</div>
+                    <div class="table-col">{{element.loses}}</div>
+                    <div class="table-col">{{element.points}}</div>
+                </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="">The selected tournament has not been started.</p>
+            {% if tournament.author == request.user %}
+                <p><a href="{% url 'tournament:draw' tournament.slug %}" class="btn btn-primary m-auto">Draw</a></p>
+            {% endif %}
+        {% endif %}
+        <p class=""><a href="{% url 'home' %}">Return to home page</a></p>
+    </div>
+</div>
+
+{% endblock content %}

@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style type="text/css">
+    .card {
+        max-width: 700px;
+    }
+    .container {
+        padding: 20px;
+    }
+</style>
+
+<div class="container">
+    <div class="row">
+        <!-- Tournament -->
+        <div class="card m-auto">
+            <div class="card-body my-2">
+                <h2 class="card-title text-center">{{tournament.title}}</h2>
+                <p class="card-text font-weight-bold">Organiser:</p>
+                <p class="card-text">{{tournament.author}}</p>
+                <p class="card-text font-weight-bold">Tournament date-time:</p>
+                <p class="card-text">{{tournament.date_tournament}} {{tournament.time_tournament}}</p>
+                <p class="card-text font-weight-bold">Deadline date-time:</p>
+                <p class="card-text">{{tournament.date_deadline}} {{tournament.time_deadline}}</p>
+                <p class="card-text font-weight-bold">Members:</p>
+                <p class="card-text">{{tournament.entry_counter}}/{{tournament.member_limit}}</p>
+                <p class="card-text font-weight-bold">Location:</p>
+                <p class="card-text">{{tournament.location}}</p>
+                {% load easy_maps_tags %}
+                <p class="card-text">{% easy_map tournament.location 650 400 14 %}</p>
+                <p class="card-text font-weight-bold">Description:</p>
+                <p class="card-text">{{tournament.body|safe}}</p>
+                <p class="card-text font-weight-bold">Sponsors:</p>
+                <img class="card-img" src="{{tournament.image.url}}">
+                <a href="{% url 'tournament:ranking' tournament.slug %}" class="btn btn-primary my-3 mr-3">Ranking</a>
+                {% if request.user.is_authenticated %}
+                    {% if tournament.author == request.user %}
+                        <a href="{% url 'tournament:edit' tournament.slug %}" class="btn btn-primary my-3 mr-3">Update</a>
+                    {% else %}
+                        <a href="{% url 'tournament:entry' tournament.slug %}" class="btn btn-primary my-3 mr-3">Take part</a>
+                    {% endif%}
+                {% endif%}
+                <div class="card-footer text-muted">
+                    Updated on {{tournament.date_updated}} by: {{tournament.author}}
+                </div>
+            </div>
+        </div>
+        <!-- end Tournament -->
+    </div>
+</div>
+
+{% endblock content %}

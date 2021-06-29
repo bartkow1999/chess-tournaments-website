@@ -1,0 +1,139 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style type="text/css">
+    .form-signin {
+        width: 100%;
+        max-width: 330px;
+        padding: 15px;
+        margin: auto;
+    }
+    .form-signin .form-control {
+        position: relative;
+        box-sizing: border-box;
+        height: auto;
+        padding: 10px;
+        font-size: 16px;
+    }
+    .form-signin .form-control:focus {
+        z-index: 2;
+    }
+    .form-signin input[type="email"] {
+        margin-bottom: 10px;
+        border-bottom-right-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+    .form-signin input[type="username"] {
+        margin-bottom: 10px;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+    }
+    .h3 {
+        text-align: center;
+    }
+    .tournaments {
+        max-width: 500px;
+        width: 100%;
+        margin: auto;
+    }
+</style>
+
+<form class="form-signin" method="post"> {% csrf_token %}
+    <h1 class="h3 mb-3 font-weight-normal">Account</h1>
+    Name:<input type="text" name="name" id="inputName" class="form-control" placeholder="Name" required value="{{account_form.initial.name}}">
+    Surname:<input type="text" name="surname" id="inputSurname" class="form-control" placeholder="Surname" required value="{{account_form.initial.surname}}">
+    Username:<input type="text" name="username" id="inputUsername" class="form-control" placeholder="Username" required value="{{account_form.initial.username}}">
+    License number:<input type="text" name="license_number" id="inputLicenseNumber" class="form-control" placeholder="License number" required value="{{account_form.initial.license_number}}">
+    Ranking:<input type="number" name="ranking" id="inputRanking" class="form-control" placeholder="Ranking" required value="{{account_form.initial.ranking}}">
+    E-mail:<input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email address" required value="{{account_form.initial.email}}">
+
+    {% for field in account_form %}
+        <p>
+            {% for error in field.errors %}
+                <p style="color: red;">{{error}}</p>
+            {% endfor %}
+        </p>
+    {% endfor %}
+
+    {% if account_form.non_field_errors %}
+        <div style="color: red;">
+            <p>{{account_form.non_field_errors}}</p>
+        </div>
+    {% endif %}
+
+    {% if success_message %}
+        <p style="color: green; text-align: center">{{success_message}}</p>
+    {% endif%}
+
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Save changes</button>
+</form>
+
+<div class="d-flex flex-column">
+    <a class="m-auto" href="{% url 'password_change' %}">Change password</a>
+</div>
+
+<div class="container mt-4 p-4">
+    <div class="row">
+        <div class="tournaments">
+            <h1 class="h3 mb-3 font-weight-normal">Tournaments</h1>
+            {% if tournaments %}
+            <ul>
+                {% for tournament in tournaments %}
+                    <a href="{% url 'tournament:detail' tournament.slug %}" style="text-decoration: none;">
+                        <li class="list-group-item">{{tournament}}</li>
+                    </a>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <p>You have no tournaments. Create a tournament <a href="{% url 'tournament:create' %}">here</a>.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<div class="container mt-4 p-4">
+    <div class="row">
+        <div class="tournaments">
+            <h1 class="h3 mb-3 font-weight-normal">Entries</h1>
+            {% if entries %}
+            <ul>
+                {% for entry in entries %}
+                    <a href="{% url 'tournament:detail' entry.tournament.slug %}" style="text-decoration: none;">
+                        <li class="list-group-item">{{entry}}</li>
+                    </a>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <p>You have no entries.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<div class="container mt-4 p-4">
+    <div class="row">
+        <div class="tournaments">
+            <h1 class="h3 mb-3 font-weight-normal">Current matches</h1>
+            {% if matches %}
+            <ul>
+                {% for match in matches %}
+                    {% if match.participant1 == request.user %}
+                        <a href="{% url 'tournament:match1' match.id %}" style="text-decoration: none;">
+                            <li class="list-group-item">{{match}}</li>
+                        </a>
+                    {% else %}
+                        <a href="{% url 'tournament:match2' match.id %}" style="text-decoration: none;">
+                            <li class="list-group-item">{{match}}</li>
+                        </a>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+            {% else %}
+            <p>You have no matches.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

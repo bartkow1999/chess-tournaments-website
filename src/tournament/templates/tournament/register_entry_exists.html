@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container">
+    <div class="d-flex flex-column">
+        <p class="m-auto">Your entry has not been registered. You have already taken part in this tournament.</p>
+         <p class="m-auto p-2"><a href="{% url 'home' %}">Return to home page</a></p>
+    </div>
+</div>
+
+{% endblock content %}

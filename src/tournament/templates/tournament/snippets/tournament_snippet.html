@@ -1,0 +1,57 @@
+<style type="text/css">
+	.card{
+		max-width: 700px;
+		width: 100%;
+	}
+	.card-body{
+		padding: 20px;
+	}
+</style>
+
+{% if tournament %}
+<div class="container">
+	<div class="row">
+
+		<!-- Tournament -->
+		<div class="card m-auto">
+
+			<div class="card-body mt-2 mb-2">
+				<a href="{% url 'tournament:detail' tournament.slug %}">
+					<h2 class="card-title">{{tournament.title}}</h2>
+				</a>
+				<p class="card-text">Location: {{tournament.location}}</p>
+				<p class="card-text">Description: {{tournament.body|safe|truncatechars:250}}</p>
+				<p class="card-text">Tournament date-time: {{tournament.date_tournament}} {{tournament.time_tournament}}</p>
+                <p class="card-text">Members: {{tournament.entry_counter}}/{{tournament.member_limit}}</p>
+				{% if tournament.author == request.user %}
+					<a href="{% url 'tournament:edit' tournament.slug %}" class="btn btn-primary">Update</a>
+				{% endif %}
+			</div>
+<!--			<a href="{% url 'tournament:detail' tournament.slug %}">-->
+<!--				<img class="card-img-top" src="{{tournament.image.url}}">-->
+<!--			</a>-->
+			<div class="card-footer text-muted">
+			  Updated on {{tournament.date_updated}} by {{tournament.author}}
+			</div>
+		</div>
+
+	</div>
+</div>
+
+{% else %}
+<div class="container">
+	<div class="row">
+		<div class="card m-auto">
+			<div class="card-body mt-2 mb-2">
+				<h2 class="card-title">
+					No results
+				</h2>
+				<p class="card-text">There were no results matching your search: "{{query}}.</p>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+{% endif %}
+
