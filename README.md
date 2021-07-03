@@ -8,7 +8,7 @@ The purpose of the application is to help users create chess tournaments.
 * [Screenshots](#screenshots)
 
 ## General info
-Application uses Django framework. 
+This application uses Django framework to work. 
 
 Functionalities:
 - creating chess tournaments
@@ -20,7 +20,7 @@ Functionalities:
 The project was made in **June 2021**.
 
 ## Technologies
-* Python 3
+* Python 3.9
 * Django 2.2.2
 * django-easy-maps 1.1.2
 
@@ -33,7 +33,7 @@ Clone this repository using git bash:
 ```
 https://github.com/bartosztkowalski/chess-tournaments-website.git
 ```
-Execute ```python manage.py runserver``` command to start the app (in /src folder).
+Execute ```python manage.py runserver``` command to start the app (while being in /src folder).
 
 ## Screenshots
 ![Main screen](./resources/screenshots/screen_01.png)
