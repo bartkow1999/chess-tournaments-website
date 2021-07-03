@@ -38,5 +38,5 @@ Execute ```python manage.py runserver``` command to start the app (while being i
 ## Screenshots
 ![Main screen](./resources/screenshots/screen_01.png)
 ![In tournament](./resources/screenshots/screen_02.png)
-![Ranking](./resources/screenshots/screen_03.png)
 ![User account](./resources/screenshots/screen_04.png)
+![Ranking](./resources/screenshots/screen_03.png)
