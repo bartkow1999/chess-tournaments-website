@@ -36,7 +36,7 @@ https://github.com/bartosztkowalski/chess-tournaments-website.git
 Execute ```python manage.py runserver``` command to start the app (in /src folder).
 
 ## Screenshots
-![Output](./resources/screenshots/screen01.png)
-![](./resources/screenshots/screen02.png)
-![](./resources/screenshots/screen03.png)
-![](./resources/screenshots/screen04.png)
+![Main screen](./resources/screenshots/screen_01.png)
+![In tournament](./resources/screenshots/screen_02.png)
+![Ranking](./resources/screenshots/screen_03.png)
+![User account](./resources/screenshots/screen_04.png)
